@@ -1,12 +1,12 @@
 ## A Circuit Domain Generalization Framework for Efficient Logic Synthesis in Chip Design
 
-This is our code for our paper *A Circuit Domain Generalization Framework for Efficient Logic Synthesis in Chip Design*.
+This is our code for our manuscript *A Circuit Domain Generalization Framework for Efficient Logic Synthesis in Chip Design*.
 
 ### Installation of Packages
 
 #### ABC Installation
 
-In this repository, we provide the executable file "abc" and the static library "libabc.a". Please refer to the repository xxx for the source code of our modified abc.
+In this repository, we provide the executable file "abc" and the static library "libabc.a". We will also release the source code of our modified abc once the manuscript is accepted.
 
 #### Python Environment Installation
 
