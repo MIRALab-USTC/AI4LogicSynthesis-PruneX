@@ -6,7 +6,55 @@ This is our code for our manuscript *A Circuit Domain Generalization Framework f
 
 #### ABC Installation
 
-In this repository, we provide the executable file "abc" and the static library "libabc.a". We will also release the source code of our modified abc once the manuscript is accepted.
+In this repository, we provide the executable file "abc" and the static library "libabc.a". However, we found that the executable file may report errors on different platforms. Thus, we provide the source code of our modified abc and show how to compile them as follows.
+
+##### Install Pybind11
+
+To install the ABC that is able to interact with python, we need to install the pybind11, which is a lightweight header-only library that exposes C++ types in Python and vice versa, mainly to create Python bindings of existing C++ code.
+
+```bash
+# (*) Step1: On Linux you’ll need to install the python-dev or python3-dev packages as well as cmake.
+
+# (*) Step2: Download the pybind11 repository
+git clone https://github.com/pybind/pybind11.git
+
+# Step3: Install the pybind11 package
+mkdir build
+cd build
+cmake ..
+make check -j 4
+make install
+
+# Step4: export Pybind11_DIR
+export Pybind11_DIR=PATH_TO_PYBIND11
+```
+
+##### Test ABC
+
+To compile the testing version ABC, you need to follow the following steps.
+
+```bash
+unzip abc_ai4mfs2-ai4mfs2_ideav4_online_inference.zip
+cd abc_ai4mfs2-ai4mfs2_ideav4_online_inference
+mkdir build
+cd build
+cmake ..
+make -j 12
+```
+
+Then, you need to copy the compiled abc and libcall_python_inference.so to ./test and ./test/libs, respectively.
+
+##### Train ABC
+
+To compile the training version ABC, you need to follow the following steps.
+
+```bash
+cd train
+unzip abc_ai4mfs2-ai4mfs2_ideav4.zip
+cd abc_ai4mfs2-ai4mfs2_ideav4
+make ABC_USE_PIC=1 ABC_USE_NO_READLINE=1 -j12 libabc.a
+export ABC_DIR=PATH_TO_TRAIN_ABC
+```
 
 #### Python Environment Installation
 
@@ -108,7 +156,7 @@ To compare our PruneX with the default operator in ABC, you have to specify the 
 
 ```bash
 # (*) Step1: add the directory of libcall python to the LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=./test/libs/libcall_python_inference.so:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=./test/libs:$LD_LIBRARY_PATH
 # (*) Step2: cp the evaluator python files to the directory /datasets/ai4eda/preliminary_expers/ai4mfs2
 mkdir /datasets/ai4eda/preliminary_expers/ai4mfs2
 cp ./test/libs/evaluator/* /datasets/ai4eda/preliminary_expers/ai4mfs2
